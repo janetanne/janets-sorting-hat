@@ -1,0 +1,242 @@
+def greet_and_get_username():
+    """ Takes in no argument, prints a welcome message. """
+
+    print "Welcome to Hogwarts! I'm the Sorting Hat."
+    name = raw_input("What's your name? ")
+    return name
+
+def print_instructions(player_name):
+    """ Takes in variable player_name, prints instructions for the game. """
+
+    print "I'm excited to see what house you get sorted into, {}!".format(player_name)
+    print "There's nothing hidden in your head that I can't see..."
+    print "Answer these 10 questions, and I will tell you where you ought to be."
+
+questions_and_answers = [
+    {
+        'question' : "One of your house mates has cheated in a Hogwarts exam by using a Self-Spelling Quill. Now he has come top of the class in Charms, beating you into second place. Professor Flitwick is suspicious of what happened. He draws you to one side after his lesson and asks you whether or not your classmate used a forbidden quill. What do you do? ",
+        'answers' : [
+        "[A] Tell Professor Flitwick that he ought to ask your classmate (and resolve to tell your classmate that if he doesn't tell the truth, you will).", # ravenclaw
+        "[B] Lie and say you don't know (but hope that somebody else tells Professor Flitwick the truth).", # hufflepuff
+        "[C] Tell Professor Flitwick the truth. If your classmate is prepared to win by cheating, he deserves to be found out. Also, as you are both in the same house, any points he loses will be regained by you, for coming first in his place.", # slytherin
+        "[D] You would not wait to be asked to tell Professor Flitwick the truth. If you knew that somebody was using a forbidden quill, you would tell the teacher before the exam started." # gryffindor
+        ]
+    },
+    {
+        'question' : "After you have died, what would you most like people to do when they hear your name? ",
+        'answers' : [
+        "[A] I don't care what people think of me after I'm dead. It's what they think of me while I'm alive that counts.", # ravenclaw
+        "[B] Miss you, but smile.", # hufflepuff
+        "[C] Think with admiration of your achievements.", # slytherin
+        "[D] Ask for more stories about your adventures." # gryffindor
+        ]
+    },
+    {
+    'question' : "How would you like to be known to history? ",
+    'answers' : [
+        "[A] The Wise",  # ravenclaw
+        "[B] The Good",  # hufflepuff
+        "[C] The Great",  # slytherin
+        "[D] The Bold"
+        ] # gryffindor
+    },
+    {
+    'question' : "Which of the following would you most hate for people to call you? ",
+    'answers' : [
+        "[A] Ignorant", # ravenclaw
+        "[B] Selfish", # hufflepuff
+        "[C] Ordinary", # slytherin
+        "[D] Cowardly" # gryffindor
+        ]
+    },
+    {
+    'question' : "What kind of instrument most pleases your ear? ",
+    'answers' : [
+        "[A] The piano", # ravenclaw
+        "[B] The violin", # hufflepuff
+        "[C] The trumpet", # slytherin
+        "[D] The drum" # gryffindor
+    ]
+    },
+    {
+    'question' : "Four boxes are placed before you. Which would you try and open? ",
+    'answers' : [
+        "[A] The gleaming jet black box with a silver lock and key, marked with a mysterious rune that you know to be the mark of Merlin.", # ravenclaw
+        "[B] The small tortoiseshell box, embellished with gold, inside which some small creature seems to be squeaking.", # hufflepuff
+        "[C] The ornate golden casket, standing on clawed feet, whose inscription warns that both secret knowledge and unbearable temptation lie within.", # slytherin
+        "[D] The small pewter box, unassuming and plain, with a scratched message upon it that reads 'I open only for the worthy.'" # gryffindor
+    ]
+    },
+    {
+    'question' : "Four goblets are placed before you. Which would you choose to drink? ",
+    'answers' : [
+    "[A] The foaming, frothing, silvery liquid that sparkles as though containing ground diamonds.", # ravenclaw
+    "[B] The smooth, thick, richly purple drink that gives off a delicious smell of chocolate and plums.", # hufflepuff
+    "[C] The mysterious black liquid that gleams like ink, and gives off fumes that make you see strange visions.", # slytherin
+    "[D] The golden liquid so bright that it hurts the eye, and which makes sunspots dance all around the room." # gryffindor
+    ]
+    },
+    {
+    'question' : "Once every century, the Flutterby bush produces flowers that adapt their scent to attract the unwary. If it lured you, it would smell of: ",
+    'answers' : [
+        "[A] Fresh parchment",  # ravenclaw
+        "[B] Home",  # hufflepuff
+        "[C] A crackling log fire",  # slytherin
+        "[D] The sea"  # gryffindor
+    ]
+    },
+    {
+    'question' : "What are you most looking forward to learning at Hogwarts? ",
+    'answers' : [
+        "[A] Transfiguration (turning one object into another object",  # ravenclaw
+        "[B] All about magical creatures, and how to befriend/care for them",  # hufflepuff
+        "[C] Every area of magic I can",  # slytherin
+        "[D] Flying on a broomstick"  # gryffindor
+    ]
+    },
+    {
+    'question' : "If you could have any power, which would you choose? ",
+    'answers' : [
+        "[A] The power to change the past", # ravenclaw
+        "[B] The power to speak to animals", # hufflepuff
+        "[C] The power to read minds", # slytherin
+        "[D] The power of superhuman strength" # gryffindor
+    ]
+    },
+    {
+    'question' : "You and two friends need to cross a bridge guarded by a river troll who insists on fighting one of you before he will let all of you pass. Which of the below do you choose to do? ",
+    'answers' : [
+        "[A] Attempt to confuse the troll into letting all three of you pass without fighting.", # ravenclaw
+        "[B] See the troll, decide it's not worth it, and turn back.", # hufflepuff
+        "[C] Suggest that all three of you should fight (without telling the troll).", # slytherin
+        "[D] Volunteer to fight." # gryffindor
+    ]
+    },
+    {
+    'question' : "Which road tempts you most? ",
+    'answers' : [
+        "[A] The cobbled street lined with ancient buildings", # ravenclaw
+        "[B] The wide, sunny, grassy lane", # hufflepuff
+        "[C] The narrow, dark, lantern-lit alley", # slytherin
+        "[D] The twisting, leaf-strewn path through woods" # gryffindor
+    ]
+    },
+    {
+    'question' : "Which nightmare would frighten you most? ",
+    'answers' : [
+        "[A] Being forced to speak in such a silly voice that hardly anyone can understand you, and everyone laughs at you.", # ravenclaw
+        "[B] Waking up to find that neither your friends nor your family have any idea who you are.", # hufflepuff
+        "[C] An eye at the keyhole of the dark, windowless room in which you are locked.", # slytherin
+        "[D] Standing on top of something very high and realising suddenly that there are no hand- or footholds, nor any barrier to stop you from falling." # gryffindor
+    ]
+    },
+    {
+    'question' : "Late at night, walking alone down the street, you hear a peculiar cry that you believe to have a magical source. What do you do? ",
+    'answers' : [
+        "[A] Withdraw into the shadows to await developments, while mentally reviewing the most appropriate defensive and offensive spells, should trouble occur.", # ravenclaw
+        "[B] Proceed with caution, keeping one hand on your concealed wand and an eye out for  any disturbance.", # hufflepuff
+        "[C] Draw your wand and stand your ground.", # slytherin
+        "[D] Draw your want and try to discover the source of the noise." # gryffindor
+    ]
+    },
+    {
+    'question' : "A Muggle confronts you and says that they are sure you are a switch or a wizard. What do you do? ",
+    'answers' : [
+        "[A] Ask what makes them think so.",  # ravenclaw
+        "[B] Tell them you are worried about their mental health, and offer to call a doctor.",  # hufflepuff
+        "[C] Agree, and ask whether they'd like a free sample of a jinx.",  # slytherin
+        "[D] Agree, and walk away, leaving them to wonder whether you are bluffing."  # gryffindor
+    ]
+    }
+]
+
+all_user_answers = {}
+
+import random
+import pprint
+
+def choose_random_questions(question_bank):
+    """ returns random list of 10 questions """
+
+    question_list = random.sample(question_bank, k = 10)
+
+    return question_list
+
+def get_user_answer(question_bank):
+    """ blahblahblah """
+
+    for prompt in question_bank:
+        pprint.pprint(prompt['question'])
+
+        for answer in prompt['answers']:
+            pprint.pprint(answer)
+
+        user_answer = raw_input("Type your answer here: ").upper()
+        print ""
+        acceptable_answers = ["A", "B", "C", "D"]
+
+        while True:
+            if user_answer not in acceptable_answers:
+                print "Oops, looks like you chose an answer that doesn't exist. Try again!"
+                user_answer = raw_input("Type your answer here (reminder: you can only choose A/B/C/D!): ").upper()
+                print ""
+            else:
+                break
+
+        if user_answer in all_user_answers:
+            all_user_answers[user_answer] += 1
+        else:
+            all_user_answers[user_answer] = 1
+
+    return all_user_answers
+
+def calculate_house(user_answer_count):
+    """ Takes in a dictionary of user answer counts, and returns and prints the House. """
+
+    answer_count = 0
+    _house = ""
+
+    for key, value in user_answer_count.iteritems():
+        if value > answer_count:
+            answer_count = value
+            _house = key
+
+    if _house == "A":
+        house = "Ravenclaw"
+    elif _house == "B":
+        house = "Hufflepuff"
+    elif _house == "C":
+        house = "Slytherin"
+    elif _house == "D":
+        house = "Gryffindor"
+
+    else:
+        house = raw_input("Hmm... what house do YOU want to be in, {}? ".format(player_name))
+
+        while True:
+            if house.capitalize() not in ["Ravenclaw", "Hufflepuff", "Slytherin", "Gryffindor"]:
+                print "Oops, that's not a house."
+                house = raw_input("Try again (remember, it's Gryffindor, Ravenclaw, Slytherin or Hufflepuff): ")
+            else:
+                break
+
+    print "I know what house you should be in now, {}.".format(player_name)
+    print "Welcome to {}, {}. YER A WIZARD!".format(house, player_name)
+
+player_name = greet_and_get_username()
+
+def run_sorting_hat():
+    """ Takes in no arguments and runs the Sorting Hat. """
+
+    print_instructions(player_name)
+
+    playing = True
+
+    while playing:
+        final_question_list = choose_random_questions(questions_and_answers)
+        get_user_answer(final_question_list)
+        calculate_house(all_user_answers)
+        break
+
+run_sorting_hat()
+
